@@ -23,83 +23,29 @@
 
 package org.gatein.api.portal;
 
-import org.gatein.api.commons.PropertyType;
-import org.gatein.api.commons.Range;
-
-import java.net.URI;
-import java.util.Date;
-import java.util.List;
+import org.gatein.api.exception.EntityNotFoundException;
 
 /**
  * @author <a href="mailto:chris.laprun@jboss.com">Chris Laprun</a>
  * @author <a href="mailto:bdawidow@redhat.com">Boleslaw Dawidowicz</a>
  * @version $Revision$
  */
-public interface Navigation
+public interface Navigation extends Iterable<Node>
 {
-
-   //TODO: extended label? [language/label]
-   //TODO: publication date/time? [start/end]
-   //TODO: Icon?
-   //TODO: Localized description and displayName
-
-   String PUBLICATION_DATE_START_NAME = "org.gatein.api.portal.navigation.publication_date_start";
-
-   PropertyType<Date> PUBLICATION_DATE_START = new PropertyType<Date>(PUBLICATION_DATE_START_NAME){};
-
-   String PUBLICATION_DATE_END_NAME = "org.gatein.api.portal.navigation.publication_date_end";
-
-   PropertyType<Date> PUBLICATION_END_START = new PropertyType<Date>(PUBLICATION_DATE_END_NAME){};
-
-
-   String getId();
-
-   String getName();
-
-   String getDisplayName();
-
-   void setDisplayName(String displayName);
-
-   boolean isVisible();
-
-   void setVisible(boolean visible);
-
-   Page getTargetPage();
-
-   void setTargetPage(Page target);
-
-   void setTargetPage(String targetId);
-
-   URI getURI();
-
    Site getSite();
 
-   Navigation getParent();
+   int getPriority();
 
-   int getIndex();
+   void setPriority(int priority);
 
-   Navigation getChild(String name);
+   Node getNode(String...path);
 
-   List<Navigation> getChildren();
+   void removeNode(String...path) throws EntityNotFoundException;
 
-   int getChildrenCount();
+   Node addNode(String name);
 
-   List<Navigation> getChildren(Range range);
-
-   void removeChild(String name);
-
-   Navigation addChild(String name);
-
+   //TODO: What's the use case here ?.
    void moveUp();
 
    void moveDown();
-
-
-   //TODO: Attributes
-
-   <T> T getProperty(PropertyType<T> property);
-
-   <T> void setProperty(PropertyType<T> property, T value);
-
-
 }

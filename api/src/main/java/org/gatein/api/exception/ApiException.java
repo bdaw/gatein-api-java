@@ -19,61 +19,25 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.gatein.api.portal;
 
-import org.gatein.api.commons.Query;
-import org.gatein.api.commons.Range;
+package org.gatein.api.exception;
 
 /**
- * Template
+ * Base api exception
  *
- * @author <a href="mailto:bdawidow@redhat.com">Boleslaw Dawidowicz</a>
+ * @author <a href="mailto:nscavell@redhat.com">Nick Scavelli</a>
  */
-public interface PageQuery extends Query<Page>
+public class ApiException extends RuntimeException
 {
-   //TODO: sortByProperty? Property value conditions?
+   public ApiException(){}
 
-   // Conditions
+   public ApiException(final String message)
+   {
+      super(message);
+   }
 
-   PageQuery setName(String name);
-
-   String getName();
-
-   PageQuery setId(String name);
-
-   String getId();
-
-   PageQuery setTitle(String title);
-
-   String getTitle();
-
-   PageQuery setNavigation(Navigation navigation);
-
-   Navigation getNavigation();
-
-
-   // Query
-
-   PageQuery reset();
-
-   PageQuery immutable();
-
-   PageQuery clone();
-
-   int resultsCount();
-
-   PageQuery sort(boolean ascending);
-
-   PageQuery setRange(Range range);
-
-   Range getRange();
-
-   PageQuery nextPage();
-
-   PageQuery previousPage();
-
-   PageQuery firstPage();
-
-   PageQuery lastPage();
-
+   public ApiException(final String message, final Throwable t)
+   {
+      super(message, t);
+   }
 }
